@@ -7,7 +7,7 @@ name = "injector"
 version = "0.1.0"
 
 [[package]]
-name = "injector_derive"
+name = "injector-macro"
 version = "0.1.0"
 dependencies = [
  "injector",

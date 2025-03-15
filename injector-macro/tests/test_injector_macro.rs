@@ -1,7 +1,7 @@
 use std::sync::Mutex;
 
 use injector::{Injected, Injector};
-use injector_derive::Injectable;
+use injector_macro::Injectable;
 
 #[derive(Injectable)]
 struct ConfigService {
