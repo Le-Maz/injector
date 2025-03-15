@@ -7,22 +7,23 @@ trait ExampleService: Send + Sync {
     fn my_number(&self) -> i64;
 }
 
+impl Injectable for Box<dyn ExampleService> {
+    fn construct(injector: &mut Injector) -> Self {
+        Box::new(ExampleServiceImpl::construct(injector))
+    }
+}
+
 #[derive(Default)]
 struct ExampleServiceImpl {
     example_field: Mutex<i64>,
 }
+
 impl ExampleService for ExampleServiceImpl {
     fn set_my_number(&self, number: i64) {
         *self.example_field.lock().unwrap() = number;
     }
     fn my_number(&self) -> i64 {
         *self.example_field.lock().unwrap()
-    }
-}
-
-impl Injectable for Box<dyn ExampleService> {
-    fn construct(injector: &mut Injector) -> Self {
-        Box::new(ExampleServiceImpl::construct(injector))
     }
 }
 
