@@ -17,8 +17,7 @@ impl Injector {
     where
         T: Any + Send + Sync + 'static,
     {
-        self.table
-            .insert(TypeId::of::<T>(), Arc::new(data));
+        self.table.insert(TypeId::of::<T>(), Arc::new(data));
     }
 
     pub fn get<T>(&mut self) -> Injected<T>

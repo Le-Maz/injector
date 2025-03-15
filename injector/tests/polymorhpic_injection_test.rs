@@ -1,6 +1,6 @@
 use std::sync::Mutex;
 
-use injector::{Injector, Injectable};
+use injector::{Injectable, Injector};
 
 trait ExampleService: Send + Sync {
     fn set_my_number(&self, number: i64);

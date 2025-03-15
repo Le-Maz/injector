@@ -1,12 +1,12 @@
 use std::sync::{Arc, LazyLock, Mutex, MutexGuard};
 
 mod injectable;
-mod injector;
 mod injected;
+mod injector;
 
 pub use crate::injectable::Injectable;
-pub use crate::injector::Injector;
 pub use crate::injected::Injected;
+pub use crate::injector::Injector;
 
 static GLOBAL_INJECTOR: LazyLock<Arc<Mutex<Injector>>> = LazyLock::new(Default::default);
 
