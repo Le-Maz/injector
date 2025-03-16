@@ -6,6 +6,7 @@ use std::ops::Deref;
 
 use std::sync::Arc;
 
+#[derive(Debug, Clone)]
 pub struct Injected<T>
 where
     T: ?Sized,
