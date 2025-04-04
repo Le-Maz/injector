@@ -1,4 +1,3 @@
-use crate::LazyInjected;
 use crate::injector::Injector;
 
 use super::Injectable;
@@ -32,16 +31,6 @@ where
 {
     fn construct(injector: &mut Injector) -> Self {
         injector.get::<T>()
-    }
-}
-
-impl<T> Injectable for LazyInjected<T>
-where
-    T: Injectable + Send + Sync + 'static,
-{
-    fn construct(injector: &mut Injector) -> Self {
-        let weak_injector = injector.as_weak();
-        LazyInjected::new(Box::new(move || weak_injector.upgrade().get()))
     }
 }
 

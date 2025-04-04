@@ -65,9 +65,9 @@ pub(crate) struct WeakInjector {
 }
 
 impl WeakInjector {
-    pub(crate) fn upgrade(&self) -> Injector {
-        Injector {
-            injector: self.injector.upgrade().unwrap_or_default()
-        }
+    pub(crate) fn upgrade(&self) -> Option<Injector> {
+        Some(Injector {
+            injector: self.injector.upgrade()?
+        })
     }
 }
