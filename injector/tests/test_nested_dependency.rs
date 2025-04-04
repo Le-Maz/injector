@@ -4,7 +4,6 @@ use injector::{Injected, Injector, Injectable};
 
 #[derive(Injectable)]
 struct ConfigService {
-    #[inject(Default::default)]
     counter_increase: Mutex<usize>,
 }
 
@@ -20,7 +19,6 @@ impl ConfigService {
 #[derive(Injectable)]
 struct CounterService {
     other_service: Injected<ConfigService>,
-    #[inject(Default::default)]
     counter: Mutex<usize>,
 }
 

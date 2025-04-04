@@ -10,6 +10,7 @@ impl<T> WeakInjected<T> {
     pub fn new(init: InitFn<T>) -> Self {
         Self(LazyLock::new(init))
     }
+
     pub fn upgrade(&self) -> Option<Injected<T>> {
         Some(Injected {
             inner: self.0.clone()?.upgrade()?,

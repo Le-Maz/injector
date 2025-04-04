@@ -4,7 +4,6 @@ use injector::{global_injector, Injectable};
 
 #[derive(Injectable)]
 struct ExampleService {
-    #[inject(Default::default)]
     example_field: Mutex<i64>,
 }
 

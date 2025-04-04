@@ -4,14 +4,14 @@ version = 4
 
 [[package]]
 name = "injector"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "injector-macro",
 ]
 
 [[package]]
 name = "injector-macro"
-version = "0.3.0"
+version = "0.4.0"
 dependencies = [
  "proc-macro2",
  "quote",
