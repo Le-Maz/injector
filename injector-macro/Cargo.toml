@@ -1,6 +1,6 @@
 [package]
 name = "injector-macro"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 
 [lib]
@@ -10,4 +10,3 @@ proc-macro = true
 proc-macro2 = "1.0.94"
 quote = "1.0.40"
 syn = "2.0.100"
-injector = { path = "../injector" }

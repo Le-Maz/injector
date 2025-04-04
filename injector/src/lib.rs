@@ -7,6 +7,7 @@ mod injector;
 pub use crate::injectable::Injectable;
 pub use crate::injected::Injected;
 pub use crate::injector::Injector;
+pub use injector_macro::Injectable;
 
 static GLOBAL_INJECTOR: LazyLock<Arc<Mutex<Injector>>> = LazyLock::new(Default::default);
 
