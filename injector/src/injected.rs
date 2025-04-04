@@ -1,3 +1,4 @@
+use crate::LazyInjected;
 use crate::injector::Injector;
 
 use super::Injectable;
@@ -34,6 +35,16 @@ where
     }
 }
 
+impl<T> Injectable for LazyInjected<T>
+where
+    T: Injectable + Send + Sync + 'static,
+{
+    fn construct(injector: &mut Injector) -> Self {
+        let weak_injector = injector.as_weak();
+        LazyInjected::new(Box::new(move || weak_injector.upgrade().get()))
+    }
+}
+
 impl<T> Debug for Injected<T>
 where
     T: Debug,
@@ -53,8 +64,8 @@ impl<T> Clone for Injected<T> {
     }
 }
 
-impl<T> Into<Arc<T>> for Injected<T> {
-    fn into(self) -> Arc<T> {
-        self.inner
+impl<T> From<Injected<T>> for Arc<T> {
+    fn from(value: Injected<T>) -> Self {
+        value.inner
     }
 }

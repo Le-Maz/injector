@@ -1,9 +1,10 @@
 use std::sync::Mutex;
 
-use injector::global_injector;
+use injector::{global_injector, Injectable};
 
-#[derive(Default)]
+#[derive(Injectable)]
 struct ExampleService {
+    #[inject(Default::default)]
     example_field: Mutex<i64>,
 }
 

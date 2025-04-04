@@ -2,9 +2,9 @@ extern crate proc_macro;
 
 use proc_macro::TokenStream;
 use quote::quote;
-use syn::{Data, DeriveInput, parse_macro_input};
+use syn::{parse_macro_input, Data, DeriveInput, Path};
 
-#[proc_macro_derive(Injectable)]
+#[proc_macro_derive(Injectable, attributes(inject))]
 pub fn injectable(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let Data::Struct(data_struct) = input.data else {
@@ -18,7 +18,18 @@ pub fn injectable(input: TokenStream) -> TokenStream {
         let ident = field.ident;
         let ty = field.ty;
         if let Some(ident) = ident {
-            fields.extend(quote!(#ident: <#ty>::construct(injector),));
+            if let Some(attr) = field
+                .attrs
+                .iter()
+                .find(|attr| attr.path().is_ident("inject"))
+            {
+                let Ok(constructor) = attr.parse_args::<Path>() else {
+                    return quote!(compile_error!("Bad argument for attribute")).into();
+                };
+                fields.extend(quote!(#ident: #constructor(),));
+            } else {
+                fields.extend(quote!(#ident: <#ty>::construct(injector),));
+            }
         } else {
             fields.extend(quote!(#ty,));
         }

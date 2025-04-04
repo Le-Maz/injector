@@ -13,8 +13,9 @@ impl Injectable for Box<dyn ExampleService> {
     }
 }
 
-#[derive(Default)]
+#[derive(Injectable)]
 struct ExampleServiceImpl {
+    #[inject(Default::default)]
     example_field: Mutex<i64>,
 }
 
